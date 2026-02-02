@@ -1,4 +1,5 @@
 # echo "Starting nodes"
 
-# source /workspace/install/setup.bash
-# ros2 run wave_rover odom_filter
+source /opt/ros/humble/setup.bash
+source /workspace/install/setup.bash
+ros2 launch launch_robot vslam_odom.launch.py

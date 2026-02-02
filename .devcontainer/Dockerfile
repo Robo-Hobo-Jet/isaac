@@ -9,6 +9,12 @@ RUN apt-get install -y \
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
-# Set up auto-source of workspace for ros user
-ARG WORKSPACE
-RUN echo "if [ -f ${WORKSPACE}/install/setup.bash ]; then source ${WORKSPACE}/install/setup.bash; fi" >> ~/.bashrc
+# Add fancy colors to bash for root user
+SHELL ["/bin/bash", "-c"]
+RUN cat <<'EOF' >> /root/.bashrc
+# ---- colorful root prompt ----
+if command -v dircolors >/dev/null 2>&1; then
+  eval "$(dircolors -b)"
+fi
+export PS1="\[\e[1;31m\]\u@\h \[\e[1;34m\]\w \[\e[0m\]# "
+EOF
