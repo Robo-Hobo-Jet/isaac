@@ -6,7 +6,6 @@ services:
       args:
         WORKSPACE: ${WORKSPACE:-/workspace}
     container_name: isaac_ros
-    # user: ros
     network_mode: host
     privileged: true
     ipc: host
@@ -21,6 +20,7 @@ services:
       XDG_RUNTIME_DIR: ${XDG_RUNTIME_DIR}
       PULSE_SERVER: ${PULSE_SERVER}
       LIBGL_ALWAYS_SOFTWARE: "1"
+      RMW_IMPLEMENTATION: "rmw_cyclonedds_cpp"
     volumes:
       - /dev/input:/dev/input # This is only required to recognise the joystick if it is turned on after the container started
       - /tmp/.X11-unix:/tmp/.X11-unix
