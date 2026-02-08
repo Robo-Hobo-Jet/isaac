@@ -5,5 +5,6 @@ set -e
 BUILD_TYPE=RelWithDebInfo
 colcon build \
         --merge-install \
-        --cmake-args "-DCMAKE_BUILD_TYPE=$BUILD_TYPE" "-DCMAKE_EXPORT_COMPILE_COMMANDS=On" \
+        --executor sequential \
+        --cmake-args "-DCMAKE_BUILD_TYPE=$BUILD_TYPE" "-DCMAKE_EXPORT_COMPILE_COMMANDS=On" "-DNVBLOX_ENABLE_REALSENSE=ON"  \
         -Wall -Wextra -Wpedantic
