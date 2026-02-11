@@ -5,6 +5,7 @@ services:
       dockerfile: .devcontainer/Dockerfile
       args:
         WORKSPACE: ${WORKSPACE:-/workspace}
+    runtime: nvidia
     container_name: isaac_ros
     network_mode: host
     privileged: true
@@ -15,6 +16,8 @@ services:
       - seccomp:unconfined
       - apparmor:unconfined
     environment:
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
       DISPLAY: ${DISPLAY}
       WAYLAND_DISPLAY: ${WAYLAND_DISPLAY}
       XDG_RUNTIME_DIR: ${XDG_RUNTIME_DIR}
@@ -25,7 +28,12 @@ services:
       - /dev/input:/dev/input # This is only required to recognise the joystick if it is turned on after the container started
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /mnt/wslg:/mnt/wslg
-      - ../:/workspace:cached 
+      - ../:/workspace:cached
+      - /usr/lib/aarch64-linux-gnu/tegra:/usr/lib/aarch64-linux-gnu/tegra:ro
+      - /usr/lib/aarch64-linux-gnu/libcuda.so.1:/usr/lib/aarch64-linux-gnu/libcuda.so.1:ro
+      - /usr/lib/aarch64-linux-gnu/libcuda.so:/usr/lib/aarch64-linux-gnu/libcuda.so:ro
+      - /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu:ro
+
     # stdin_open: true
     # tty: true
     command: /workspace/entrypoint.sh

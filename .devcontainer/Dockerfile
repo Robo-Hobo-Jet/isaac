@@ -24,12 +24,6 @@ RUN git clone https://github.com/IntelRealSense/realsense-ros.git /opt/ros_ws/sr
     cd /opt/ros_ws/src/realsense-ros && \
     git checkout tags/4.51.1
 
-RUN git clone -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git /opt/ros_ws/src/isaac_ros_common
-
-RUN git clone --recurse-submodules -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git /opt/ros_ws/src/isaac_ros_nvblox && \
-    cd /opt/ros_ws/src/isaac_ros_nvblox && \
-    git lfs pull
-
 RUN rm -f /etc/apt/sources.list.d/yarn.list
 
 # Build the workspace, but ignore librealsense2 packages as they are built locally in the correct version
@@ -40,6 +34,11 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
                   rosdep update && \
                   rosdep install --from-paths src --ignore-src -r -y --skip-keys='librealsense2 librealsense2-dev librealsense2-utils' && \
                   colcon build --symlink-install --executor sequential --cmake-args '-DCMAKE_BUILD_TYPE=RelWithDebInfo' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' '-DNVBLOX_ENABLE_REALSENSE=ON'"
+
+# Install robot_localization
+RUN apt-get update --allow-releaseinfo-change && apt-get install -y \
+    ros-humble-robot-localization \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc
 RUN echo "source /opt/ros_ws/install/setup.bash" >> /root/.bashrc
