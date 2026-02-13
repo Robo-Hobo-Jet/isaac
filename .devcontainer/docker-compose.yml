@@ -29,10 +29,6 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /mnt/wslg:/mnt/wslg
       - ../:/workspace:cached
-      - /usr/lib/aarch64-linux-gnu/tegra:/usr/lib/aarch64-linux-gnu/tegra:ro
-      - /usr/lib/aarch64-linux-gnu/libcuda.so.1:/usr/lib/aarch64-linux-gnu/libcuda.so.1:ro
-      - /usr/lib/aarch64-linux-gnu/libcuda.so:/usr/lib/aarch64-linux-gnu/libcuda.so:ro
-      - /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu:ro
 
     # stdin_open: true
     # tty: true
