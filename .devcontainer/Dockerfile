@@ -37,7 +37,7 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
 
 # Install robot_localization
 RUN apt-get update --allow-releaseinfo-change && apt-get install -y \
-    ros-humble-robot-localization \
+    ros-humble-robot-localization ros-humble-topic-tools \
     && rm -rf /var/lib/apt/lists/*
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc
