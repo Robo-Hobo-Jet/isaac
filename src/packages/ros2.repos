@@ -4,7 +4,7 @@
 # Example:
 ############
 repositories:
-  # joystick_drivers:
-  #   type: git
-  #   url: https://github.com/ros-drivers/joystick_drivers.git
+  launch_robot:
+     type: git
+     url: https://github.com/Robo-Hobo-Jet/launch_robot.git
     

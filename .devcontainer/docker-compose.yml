@@ -30,7 +30,4 @@ services:
       - /mnt/wslg:/mnt/wslg
       - ../:/workspace:cached
 
-    # stdin_open: true
-    # tty: true
     command: /workspace/entrypoint.sh
-    restart: always
